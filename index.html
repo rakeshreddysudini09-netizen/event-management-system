@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Event Management System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- ================= LOGIN SECTION ================= -->
+    <div id="loginSection" class="card">
+        <h2>Login</h2>
+
+        <input type="text" id="loginUsername" placeholder="Enter Username">
+        <input type="password" id="loginPassword" placeholder="Enter Password">
+
+        <button onclick="handleLogin()">Login</button>
+
+        <p class="note">
+            Admin: admin / admin123 <br>
+            User: user / user123
+        </p>
+    </div>
+
+    <!-- ================= DASHBOARD ================= -->
+    <div id="dashboard" style="display:none;">
+
+        <!-- HEADER -->
+        <header>
+            <h1>Event Management System</h1>
+            <div>
+                Welcome, <span id="userNameDisplay"></span>
+                <button onclick="logout()">Logout</button>
+            </div>
+        </header>
+
+        <!-- STATISTICS -->
+        <section class="stats">
+            <div>Total Events: <span id="totalEvents">0</span></div>
+            <div>Total Bookings: <span id="totalBookings">0</span></div>
+        </section>
+
+        <!-- ================= ADMIN PANEL ================= -->
+        <section id="adminPanel" style="display:none;">
+            <h3>Add Event</h3>
+
+            <input type="text" id="eventNameInput" placeholder="Event Name">
+            <input type="date" id="eventDateInput">
+            <input type="number" id="eventSeatsInput" placeholder="Total Seats">
+            <input type="text" id="eventCategoryInput" placeholder="Category">
+
+            <button onclick="handleAddEvent()">Add Event</button>
+        </section>
+
+        <!-- ================= SEARCH ================= -->
+        <section class="search-section">
+            <input type="text" id="searchInput" placeholder="Search Events..." onkeyup="handleSearch()">
+        </section>
+
+        <!-- ================= EVENTS ================= -->
+        <section>
+            <h3>Available Events</h3>
+            <div id="eventContainer"></div>
+        </section>
+
+        <!-- ================= BOOKING HISTORY ================= -->
+        <section>
+            <h3>Your Booking History</h3>
+            <div id="bookingHistory"></div>
+        </section>
+
+    </div>
+
+    <!-- ================= SCRIPT LINK ================= -->
+    <script src="script.js"></script>
+
+    <!-- ================= HELPER FUNCTIONS ================= -->
+    <script>
+        function handleLogin() {
+            const username = document.getElementById("loginUsername").value;
+            const password = document.getElementById("loginPassword").value;
+            login(username, password);
+        }
+
+        function handleAddEvent() {
+            const name = document.getElementById("eventNameInput").value;
+            const date = document.getElementById("eventDateInput").value;
+            const seats = document.getElementById("eventSeatsInput").value;
+            const category = document.getElementById("eventCategoryInput").value;
+
+            addEvent(name, date, seats, category);
+
+            // Clear form
+            document.getElementById("eventNameInput").value = "";
+            document.getElementById("eventDateInput").value = "";
+            document.getElementById("eventSeatsInput").value = "";
+            document.getElementById("eventCategoryInput").value = "";
+        }
+
+        function handleSearch() {
+            const keyword = document.getElementById("searchInput").value;
+            const filtered = searchEvents(keyword);
+            renderEvents(filtered);
+        }
+    </script>
+
+</body>
+</html>
